@@ -1,0 +1,6 @@
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-fira-code: 'Fira Code', monospace;
+}

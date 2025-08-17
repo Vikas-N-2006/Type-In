@@ -1,27 +1,68 @@
-# Node.js dependencies
-node_modules/
+# This is a root .gitignore for a monorepo containing a Next.js frontend and a Node.js backend.
+
+### Dependencies #
+# Ignore dependency directories from all projects
+/node_modules/
+/frontend/node_modules/
+/backend/node_modules/
+
+# Yarn-specific files
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+
+### Build & Output ##
+# Next.js (frontend) build output
+/frontend/.next/
+/frontend/out/
+
+# Node.js (backend) build output
+/backend/dist/
+/backend/build/
+
+# General testing output
+/coverage/
+
+
+### Logs ##
+# General log files and directories
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# Logs
-logs/
-*.log
-*.log.*
-
-# Environment variables
+### Environment Variables ####
+# Ignore all local environment files
 .env
 .env.*
+# It's good practice to commit a template/example file
+!.env.example
 
-# Build output
-dist/
-build/
-
-# IDE files
+### IDE & Editor Config 
 .vscode/
 .idea/
 *.swp
 
-# OS generated files
+
+### OS & System Files 
 .DS_Store
 Thumbs.db
+
+
+### Miscellaneous #
+# TypeScript build info
+*.tsbuildinfo
+/frontend/next-env.d.ts
+
+# Vercel deployment config
+.vercel
+
+# Security certificates
+*.pem
