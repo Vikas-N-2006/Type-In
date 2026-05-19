@@ -36,13 +36,13 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', authenticate, upload.single('coverImage'), async (req, res) => {
   try {
-    const { title, body } = req.body;
-    if (!title || !body || !req.file) {
+    const { title, content } = req.body;
+    if (!title || !content || !req.file) {
       return res.status(400).json({ error: 'All fields are required' });
     }
     const blog = new Blog({
       title,
-      body,
+      content,
       coverImageURL: `/uploads/${req.file.filename}`,
       createdBy: req.user._id,
     });
@@ -50,32 +50,6 @@ router.post('/', authenticate, upload.single('coverImage'), async (req, res) => 
     res.status(201).json(blog);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
-  }
-});
-
-// Add this temporarily to check your database
-router.get('/debug', async (req, res) => {
-  try {
-    // Check database connection
-    const dbState = mongoose.connection.readyState;
-    console.log('Database state:', dbState); // 1 = connected
-    
-    // Check collection name
-    const collections = await mongoose.connection.db.listCollections().toArray();
-    console.log('Available collections:', collections.map(c => c.name));
-    
-    // Raw query without populate
-    const rawBlogs = await Blog.find({});
-    console.log('Raw blogs (no populate):', rawBlogs);
-    
-    res.json({
-      dbState,
-      collections: collections.map(c => c.name),
-      rawBlogs
-    });
-  } catch (err) {
-    console.error('Debug error:', err);
-    res.status(500).json({ error: err.message });
   }
 });
 

@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     profileImageURL:
     {
         type: String,
-        default: './public/images/default.png'
+        default: '/images/default.png'
     },
     createdAt:
     {

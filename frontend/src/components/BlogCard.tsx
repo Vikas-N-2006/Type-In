@@ -27,15 +27,15 @@ export const BlogCard = ({ blog }: BlogCardProps) => {
       </div>
       <div className="p-5">
         <h2 className="text-xl font-bold font-mono text-slate-200 mb-2 group-hover:text-indigo-400 transition-colors">{blog.title}</h2>
-        <p className="text-slate-400 text-sm mb-4 h-16 font-sans">{createSnippet(blog.body, 100)}</p>
+        <p className="text-slate-400 text-sm mb-4 h-16 font-sans">{createSnippet(blog.content || blog.body || '', 100)}</p>
         <div className="flex justify-between items-center">
-            <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
-                <Image src={authorImageUrl} alt={blog.createdBy?.fullName || 'Author'} width={24} height={24} className="rounded-full border-2 border-slate-600"/>
-                <span>{blog.createdBy?.fullName || 'Anonymous'}</span>
-            </div>
-            <div className="font-mono text-indigo-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                <span className="text-indigo-400/50 group-hover:text-indigo-400">$</span> read_post <GitBranch size={16}/>
-            </div>
+          <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
+            <Image src={authorImageUrl} alt={blog.createdBy?.fullName || 'Author'} width={24} height={24} className="rounded-full border-2 border-slate-600" />
+            <span>{blog.createdBy?.fullName || 'Anonymous'}</span>
+          </div>
+          <div className="font-mono text-indigo-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-indigo-400/50 group-hover:text-indigo-400">$</span> read_post <GitBranch size={16} />
+          </div>
         </div>
       </div>
     </Link>

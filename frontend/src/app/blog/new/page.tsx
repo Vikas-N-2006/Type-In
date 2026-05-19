@@ -1,5 +1,6 @@
 // --- /app/blog/new/page.tsx ---
 'use client';
+// @ts-ignore: Allow side-effect CSS import in this file (no type declarations for .css)
 import '../../globals.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -12,6 +13,7 @@ import { GlitchButton } from '@/components/ui/GlitchButton';
 
 export default function NewBlogPage() {
     const { token } = useAuth();
+    console.log(token)
     const router = useRouter();
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
@@ -31,7 +33,7 @@ export default function NewBlogPage() {
         }
         const formData = new FormData();
         formData.append('title', title);
-        formData.append('body', body);
+        formData.append('content', body);
         formData.append('coverImage', coverImage);
 
         mutate({ formData, token });
@@ -45,7 +47,7 @@ export default function NewBlogPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label className="block text-sm font-mono text-slate-400 mb-2" htmlFor="title">Commit Message (Title)</label>
-                        <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} required className="w-full px-4 py-2 bg-slate-900/70 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-200 font-mono" />
+                        <input type="text" id="title" value={title} onChange={e => setTitle(e.target.value)} className="w-full px-4 py-2 bg-slate-900/70 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-200 font-mono" />
                     </div>
                     <div>
                         <label className="block text-sm font-mono text-slate-400 mb-2" htmlFor="coverImage">Cover Image</label>
@@ -55,7 +57,7 @@ export default function NewBlogPage() {
                                 <div className="flex text-sm text-slate-500 font-mono">
                                     <label htmlFor="coverImage" className="relative cursor-pointer bg-slate-800 rounded-md font-medium text-indigo-400 hover:text-indigo-300 focus-within:outline-none p-1">
                                         <span>Upload a file</span>
-                                        <input id="coverImage" name="coverImage" type="file" className="sr-only" onChange={e => setCoverImage(e.target.files ? e.target.files[0] : null)} required />
+                                        <input id="coverImage" name="coverImage" type="file" className="sr-only" onChange={e => setCoverImage(e.target.files ? e.target.files[0] : null)} />
                                     </label>
                                 </div>
                                 <p className="text-xs text-slate-600">{coverImage ? coverImage.name : 'PNG, JPG, GIF up to 10MB'}</p>
@@ -64,7 +66,7 @@ export default function NewBlogPage() {
                     </div>
                     <div>
                         <label className="block text-sm font-mono text-slate-400 mb-2" htmlFor="body">Content (Body - Markdown supported)</label>
-                        <textarea id="body" value={body} onChange={e => setBody(e.target.value)} rows={12} required className="w-full px-4 py-2 bg-slate-900/70 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-200 font-sans leading-relaxed"></textarea>
+                        <textarea id="body" value={body} onChange={e => setBody(e.target.value)} rows={12} className="w-full px-4 py-2 bg-slate-900/70 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-200 font-sans leading-relaxed"></textarea>
                     </div>
                     <GlitchButton type="submit" disabled={isLoading} className="w-full">
                         {isLoading ? <Loader2 className="animate-spin" /> : <><GitBranch size={16} /> Push to Main</>}

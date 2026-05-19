@@ -83,7 +83,7 @@ export default function BlogPage() {
                     <span>{new Date(blog.createdAt).toLocaleDateString('en-CA')}</span>
                 </div>
                 <div className="prose prose-invert prose-lg max-w-none font-sans text-slate-300 prose-p:leading-relaxed prose-headings:font-mono prose-headings:text-indigo-400 prose-a:text-teal-400 hover:prose-a:text-teal-300 prose-strong:text-slate-100 prose-code:bg-slate-800 prose-code:p-1 prose-code:rounded prose-pre:bg-slate-900/70 prose-pre:border prose-pre:border-slate-700">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.body}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content || blog.body || ''}</ReactMarkdown>
                 </div>
             </article>
 
